@@ -8,13 +8,32 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;500;700;800;900&display=swap"
       rel="stylesheet"
     />
     <title>Wallet App</title>
   </head>
   <body>
-    <h1>Wallet App</h1>
+    <section class="home">
+      <div class="container">
+        <div class="container-img">
+          <img src="./src/img//w-logo.png" alt="logo wallet" />
+        </div>
+        <div class="container-form">
+          <h3>Bem vindo!</h3>
+          <p>
+            Digite seu e-mail abaixo para ter acesso à aplicação financeira Wallet, e ter
+            uma melhor controle dos seus gastos mensais.
+          </p>
+          <div class="form">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" name="email" placeholder="email@exemplo.com" />
+          </div>
+        </div>
+        <button class="mt-s">Acessar</button>
+        <a href="">Não tem conta ? Faça seu cadastro aqui.</a>
+      </div>
+    </section>
     <script src="index.js"></script>
   </body>
 </html>
