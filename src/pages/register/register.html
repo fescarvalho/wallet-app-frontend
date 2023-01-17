@@ -4,39 +4,40 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="../../../style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@100;300;500;700;800;900&display=swap"
       rel="stylesheet"
     />
-    <title>Wallet App - Login</title>
+    <title>Wallet App - Castrar</title>
   </head>
   <body>
     <section class="home">
       <div class="container">
         <div class="container-img">
-          <img src="./src/img/w-logo.png" alt="logo wallet" />
+          <img src="../../../src/img/w-logo.png" alt="logo wallet" />
         </div>
         <div class="container-form">
-          <h3>Bem vindo!</h3>
+          <h3>Novo Cadastro</h3>
           <p>
-            Digite seu e-mail abaixo para ter acesso à aplicação financeira Wallet, e ter
-            uma melhor controle dos seus gastos mensais.
+            Insira seu nome e seu e-mail para ter acesso ao Wallet app e gerenciar suas
+            finanças
           </p>
+          <div class="form">
+            <label for="name">Nome</label>
+            <input id="name" type="name" name="name" placeholder="name@exemplo.com" />
+          </div>
           <div class="form">
             <label for="email">E-mail</label>
             <input id="email" type="email" name="email" placeholder="email@exemplo.com" />
           </div>
         </div>
-        <button onclick="onClickLogin()" class="mt-s">Acessar</button>
-        <a href="./src/pages/register/register.html"
-          >Não tem conta ? Faça seu cadastro aqui.</a
-        >
+        <button class="mt-s">Cadastrar</button>
+        <a href="../../../index.html">Já possui uma conta ? Faça o seu login</a>
       </div>
     </section>
-    <script src="index.js"></script>
+    <script src="register.js"></script>
   </body>
 </html>
