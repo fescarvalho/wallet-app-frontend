@@ -64,6 +64,9 @@ input {
   margin-top: 20px;
   margin-bottom: 10px;
 }
+.mt-s {
+  margin-top: 14px;
+}
 
 .home {
   width: 100vw;
