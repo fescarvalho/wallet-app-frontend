@@ -117,3 +117,31 @@ td.right {
 td.center {
   text-align: center;
 }
+
+.modal-background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  display: none;
+  align-items: flex-end;
+  flex-direction: column;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(1, 4, 0, 0.2);
+}
+
+.modal-content {
+  height: 100%;
+  width: 480px;
+  background-color: #f4f4f9;
+  padding: 24px;
+}
+.modal-content-header {
+  width: 100%;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: row;
+  justify-content: space-between;
+}

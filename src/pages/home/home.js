@@ -1,12 +1,6 @@
 const renderFinancesList = (data) => {
   const table = document.getElementById("finances-table");
-  /*  <tr>
-  <td>Item1</td>
-  <td>Item2</td>
-  <td>Item3</td>
-  <td class="center">Item5</td>
-  <td class="right">Item4</td>
-</tr> */
+
   data.map((item) => {
     const tableRow = document.createElement("tr");
     tableRow.className = "mt-s";
@@ -160,7 +154,38 @@ const onLoadUserInfo = () => {
   navbarUserAvatar.appendChild(nameElement);
 };
 
+const onLoadCategories = async () => {
+  try {
+    const categoriesSelector = document.getElementById("categoria");
+    const response = await fetch(
+      "https://walletappbackend-production.up.railway.app/categories",
+    );
+    const categoriesResult = await response.json();
+    categoriesResult.map((category) => {
+      const option = document.createElement("option");
+      const categorieText = document.createTextNode(category.name);
+      option.appendChild(categorieText);
+      option.value = category.id;
+      option.id = `category_${category.id}`;
+      categoriesSelector.appendChild(option);
+    });
+  } catch (error) {
+    alert("Erro ao carregas as categorias");
+  }
+};
+
+const openModal = () => {
+  const modal = document.getElementById("modal");
+  modal.style.display = "flex";
+};
+
+const openCloseModal = () => {
+  const modal = document.getElementById("modal");
+  modal.style.display = "none";
+};
+
 window.onload = () => {
   onLoadUserInfo();
   onLoadFinancesData();
+  onLoadCategories();
 };

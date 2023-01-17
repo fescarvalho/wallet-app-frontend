@@ -41,7 +41,7 @@
         <div class="table-content-container">
           <div class="table-content-header">
             <h2>Ultimos Lançamentos</h2>
-            <button class="small">Adicionar</button>
+            <button onclick="openModal()" class="small">Adicionar</button>
           </div>
           <table id="finances-table">
             <tr>
@@ -60,6 +60,40 @@
             </tr>
           </table>
         </div>
+      </div>
+    </div>
+    <div id="modal" class="modal-background">
+      <div class="modal-content">
+        <div class="modal-content-header">
+          <h3>Adicionar Lançamento</h3>
+          <button onclick="openCloseModal()" class="small">Fechar</button>
+        </div>
+        <form class="form">
+          <label for="titulo">Titulo</label>
+          <input
+            id="titulo"
+            type="text"
+            name="titulo"
+            placeholder="Ex: Conta de Energia"
+            required
+          />
+
+          <label for="value">Valor</label>
+          <input
+            id="value"
+            type="text"
+            name="value"
+            placeholder="R$ 0,00(Use valores negativos para despesas)"
+            required
+          />
+          <label for="date">Data</label>
+          <input id="date" type="date" name="date" placeholder="00/00/0000" required />
+
+          <label for="categoria">Categoria</label>
+          <select id="categoria" type="" name="categoria" required></select>
+
+          <button class="mt-l">Adicionar</button>
+        </form>
       </div>
     </div>
 
