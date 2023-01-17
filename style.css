@@ -119,7 +119,6 @@ input::placeholder {
 button {
   width: 100%;
   height: 56px;
-
   margin-bottom: 40px;
   background-color: rgba(89, 54, 205, 1);
   border: none;
@@ -129,7 +128,8 @@ button {
   cursor: pointer;
 }
 button.small {
-  background-color: #f4f4f9;
+  border: 2px solid #5936cd;
+  background-color: #fff;
   color: #010400;
   font-size: 14px;
   border-radius: 8px;
