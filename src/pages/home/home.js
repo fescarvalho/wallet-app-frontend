@@ -45,6 +45,9 @@ const renderFinancesList = (data) => {
 
   const actionText = document.createTextNode("Ação");
   const actionElement = document.createElement("th");
+  if (widthScroller < 600) {
+    actionElement.className = "center";
+  }
   actionElement.className = "right";
   actionElement.appendChild(actionText);
   tableHeader.appendChild(actionElement);
@@ -98,7 +101,7 @@ const renderFinancesList = (data) => {
     const deleteText = document.createTextNode("Deletar");
     const widthScroll = window.innerWidth;
     if (widthScroll < 600) {
-      deleteText.textContent = "X";
+      deleteText.textContent = "DEL";
     }
 
     deleteTd.style.cursor = "pointer";

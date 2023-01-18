@@ -242,6 +242,11 @@ td.center {
   .modal-content input {
     margin-bottom: 10px;
   }
+  .finance-card {
+    width: 100px;
+    height: 70px;
+    margin: 20px 0;
+  }
 }
 
 @media only screen and (max-width: 450px) {
@@ -255,10 +260,15 @@ td.center {
   }
 
   .table-content-container {
-    padding: 0px;
+    padding: 10px;
   }
   .navbar {
-    padding: 24px 40px;
+    padding: 24px 30px;
+  }
+  .input-calendar {
+    width: 90px;
+    height: 42px;
+    font-size: 10px;
   }
   th {
     font-size: 14px;
