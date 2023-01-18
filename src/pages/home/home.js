@@ -185,10 +185,10 @@ const renderFinancesElements = (data) => {
 
 const onLoadFinancesData = async () => {
   try {
-    const date = "2023-01-17";
+    const dateInputValue = document.getElementById("select-date").value;
     const email = localStorage.getItem("@walletapp:email");
     const result = await fetch(
-      `https://walletappbackend-production.up.railway.app/finances?date=${date}`,
+      `https://walletappbackend-production.up.railway.app/finances?date=${dateInputValue}`,
       {
         method: "GET",
         headers: {
@@ -203,6 +203,11 @@ const onLoadFinancesData = async () => {
   } catch (error) {
     return { error };
   }
+};
+
+const onLogout = () => {
+  localStorage.clear();
+  window.open("../../../index.html", "_self");
 };
 
 const onLoadUserInfo = () => {
@@ -220,6 +225,8 @@ const onLoadUserInfo = () => {
 
   //add logout link
   const logoutElement = document.createElement("a");
+  logoutElement.onclick = () => onLogout();
+  logoutElement.style.cursor = "pointer";
   const logoutText = document.createTextNode("sair");
 
   logoutElement.appendChild(logoutText);
@@ -311,7 +318,17 @@ const onCreateFinanceRealease = async (target) => {
   }
 };
 
+const setInitialDate = () => {
+  const dateInput = document.getElementById("select-date");
+  const nowDate = new Date().toISOString().split("T")[0];
+  dateInput.value = nowDate;
+  dateInput.addEventListener("change", () => {
+    onLoadFinancesData();
+  });
+};
+
 window.onload = () => {
+  setInitialDate();
   onLoadUserInfo();
   onLoadFinancesData();
   onLoadCategories();
