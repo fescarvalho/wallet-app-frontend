@@ -1,3 +1,18 @@
+const onDeleteItem = async (id) => {
+  try {
+    const email = localStorage.getItem("@walletapp:email");
+    await fetch(`https://walletappbackend-production.up.railway.app/finances/${id}`, {
+      method: "DELETE",
+      headers: {
+        email,
+      },
+    });
+    onLoadFinancesData();
+  } catch (error) {
+    alert("Error ao deletar item.");
+  }
+};
+
 const renderFinancesList = (data) => {
   const table = document.getElementById("finances-table");
   table.innerHTML = "";
@@ -75,8 +90,9 @@ const renderFinancesList = (data) => {
 
     //delete
     const deleteTd = document.createElement("td");
+    deleteTd.onclick = () => onDeleteItem(item.id);
     const deleteText = document.createTextNode("Deletar");
-
+    deleteTd.style.cursor = "pointer";
     deleteTd.className = "right";
     deleteTd.appendChild(deleteText);
 
@@ -278,7 +294,7 @@ const onCreateFinanceRealease = async (target) => {
     const value = Number(target[1].value);
     const date = target[2].value;
     const category_id = Number(target[3].value);
-    const result = onCallAddFinance({
+    const result = await onCallAddFinance({
       title,
       value,
       date,
@@ -288,7 +304,6 @@ const onCreateFinanceRealease = async (target) => {
       alert("Erro ao adcionar novo dado financeiro");
       return;
     }
-
     openCloseModal();
     onLoadFinancesData();
   } catch (error) {
@@ -297,8 +312,8 @@ const onCreateFinanceRealease = async (target) => {
 };
 
 window.onload = () => {
-  onLoadFinancesData();
   onLoadUserInfo();
+  onLoadFinancesData();
   onLoadCategories();
 
   const form = document.getElementById("form-finance-release");
