@@ -7,7 +7,7 @@ The main objective is the user add and delete finances releases (that are saved 
 
 ## Live application
 
-<https://wallet-app-frontend.vercel.app/>
+https://wallet-app-frontend.vercel.app/
 
 ## Technologies used
 

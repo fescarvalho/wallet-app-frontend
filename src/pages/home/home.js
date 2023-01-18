@@ -14,6 +14,7 @@ const onDeleteItem = async (id) => {
 };
 
 const renderFinancesList = (data) => {
+  const widthScroller = window.innerWidth;
   const table = document.getElementById("finances-table");
   table.innerHTML = "";
 
@@ -24,10 +25,12 @@ const renderFinancesList = (data) => {
   titleElement.appendChild(titleText);
   tableHeader.appendChild(titleElement);
 
-  const categoryText = document.createTextNode("Categoria");
-  const categoryElement = document.createElement("th");
-  categoryElement.appendChild(categoryText);
-  tableHeader.appendChild(categoryElement);
+  if (widthScroller > 600) {
+    const categoryText = document.createTextNode("Categoria");
+    const categoryElement = document.createElement("th");
+    categoryElement.appendChild(categoryText);
+    tableHeader.appendChild(categoryElement);
+  }
 
   const dateText = document.createTextNode("Data");
   const dateElement = document.createElement("th");
@@ -60,12 +63,13 @@ const renderFinancesList = (data) => {
     tableRow.appendChild(titleTd);
 
     //category
-    const categoryTd = document.createElement("td");
-    const tcategoryText = document.createTextNode(item.name);
-    categoryTd.appendChild(tcategoryText);
 
-    tableRow.appendChild(categoryTd);
-
+    if (widthScroller > 600) {
+      const categoryTd = document.createElement("td");
+      const tcategoryText = document.createTextNode(item.name);
+      categoryTd.appendChild(tcategoryText);
+      tableRow.appendChild(categoryTd);
+    }
     //date
     const dateTd = document.createElement("td");
     const dateText = document.createTextNode(new Date(item.date).toLocaleDateString());
@@ -92,6 +96,11 @@ const renderFinancesList = (data) => {
     const deleteTd = document.createElement("td");
     deleteTd.onclick = () => onDeleteItem(item.id);
     const deleteText = document.createTextNode("Deletar");
+    const widthScroll = window.innerWidth;
+    if (widthScroll < 600) {
+      deleteText.textContent = "X";
+    }
+
     deleteTd.style.cursor = "pointer";
     deleteTd.className = "right";
     deleteTd.appendChild(deleteText);
@@ -114,16 +123,21 @@ const renderFinancesElements = (data) => {
   const financesCard1 = document.getElementById("finance-card-1");
   financesCard1.innerHTML = "";
 
-  const totalSubtext = document.createTextNode("Total de lançamentos");
+  const totalSubtext = document.createTextNode("Lançamentos");
   const totalSubtextElement = document.createElement("h3");
   totalSubtextElement.appendChild(totalSubtext);
   financesCard1.appendChild(totalSubtextElement);
+  const widthScroll = window.innerWidth;
 
   const totalText = document.createTextNode(totalItems);
   const totalElement = document.createElement("h1");
   totalElement.id = "total-element";
   totalElement.appendChild(totalText);
   financesCard1.appendChild(totalElement);
+
+  if (widthScroll < 600) {
+    financesCard1.remove();
+  }
 
   //render revenue
   const financesCard2 = document.getElementById("finance-card-2");
@@ -213,6 +227,7 @@ const onLogout = () => {
 const onLoadUserInfo = () => {
   const email = localStorage.getItem("@walletapp:email");
   const name = localStorage.getItem("@walletapp:name");
+  const widthScroll = window.innerWidth;
 
   const navbarUserInfo = document.getElementById("navbar-user-container");
   const navbarUserAvatar = document.getElementById("navbar-user-avatar");
@@ -221,6 +236,10 @@ const onLoadUserInfo = () => {
   const emailElement = document.createElement("p");
   const emailText = document.createTextNode(email);
   emailElement.appendChild(emailText);
+
+  if (widthScroll < 600) {
+    emailElement.style.display = "none";
+  }
   navbarUserInfo.appendChild(emailElement);
 
   //add logout link
