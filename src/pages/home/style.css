@@ -113,6 +113,9 @@ td {
 td.right {
   text-align: right;
 }
+tr {
+  height: 32px;
+}
 
 td.center {
   text-align: center;

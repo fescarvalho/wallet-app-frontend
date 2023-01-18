@@ -1,5 +1,37 @@
 const renderFinancesList = (data) => {
   const table = document.getElementById("finances-table");
+  table.innerHTML = "";
+
+  const tableHeader = document.createElement("tr");
+
+  const titleText = document.createTextNode("Titulo");
+  const titleElement = document.createElement("th");
+  titleElement.appendChild(titleText);
+  tableHeader.appendChild(titleElement);
+
+  const categoryText = document.createTextNode("Categoria");
+  const categoryElement = document.createElement("th");
+  categoryElement.appendChild(categoryText);
+  tableHeader.appendChild(categoryElement);
+
+  const dateText = document.createTextNode("Data");
+  const dateElement = document.createElement("th");
+  dateElement.appendChild(dateText);
+  tableHeader.appendChild(dateElement);
+
+  const valueText = document.createTextNode("Valor");
+  const valueElement = document.createElement("th");
+  valueElement.className = "center";
+  valueElement.appendChild(valueText);
+  tableHeader.appendChild(valueElement);
+
+  const actionText = document.createTextNode("Ação");
+  const actionElement = document.createElement("th");
+  actionElement.className = "right";
+  actionElement.appendChild(actionText);
+  tableHeader.appendChild(actionElement);
+
+  table.appendChild(tableHeader);
 
   data.map((item) => {
     const tableRow = document.createElement("tr");
@@ -64,41 +96,72 @@ const renderFinancesElements = (data) => {
 
   //render total items
   const financesCard1 = document.getElementById("finance-card-1");
+  financesCard1.innerHTML = "";
+
+  const totalSubtext = document.createTextNode("Total de lançamentos");
+  const totalSubtextElement = document.createElement("h3");
+  totalSubtextElement.appendChild(totalSubtext);
+  financesCard1.appendChild(totalSubtextElement);
+
   const totalText = document.createTextNode(totalItems);
   const totalElement = document.createElement("h1");
+  totalElement.id = "total-element";
   totalElement.appendChild(totalText);
   financesCard1.appendChild(totalElement);
 
   //render revenue
   const financesCard2 = document.getElementById("finance-card-2");
+  financesCard2.innerHTML = "";
+
+  const revenueSubtext = document.createTextNode("Receitas");
+  const revenueSubtextElement = document.createElement("h3");
+  revenueSubtextElement.appendChild(revenueSubtext);
+  financesCard2.appendChild(revenueSubtextElement);
+
   const revenueText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
       revenues,
     ),
   );
   const revenueTextElement = document.createElement("h1");
+  revenueTextElement.id = "revenue-element";
   revenueTextElement.appendChild(revenueText);
   financesCard2.appendChild(revenueTextElement);
 
   //render expenses
   const financesCard3 = document.getElementById("finance-card-3");
+  financesCard3.innerHTML = "";
+
+  const expansesSubtext = document.createTextNode("Despesas");
+  const expansesSubtextElement = document.createElement("h3");
+  expansesSubtextElement.appendChild(expansesSubtext);
+  financesCard3.appendChild(expansesSubtextElement);
+
   const expensesText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
       expenses,
     ),
   );
   const expensesTextElement = document.createElement("h1");
+  expensesTextElement.id = "expenses-text";
   expensesTextElement.appendChild(expensesText);
   financesCard3.appendChild(expensesTextElement);
 
   //render totatl
   const financesCard4 = document.getElementById("finance-card-4");
+  financesCard4.innerHTML = "";
+  const balanceSubtext = document.createTextNode("Balanço");
+  const balanceSubtextElement = document.createElement("h3");
+  balanceSubtextElement.appendChild(balanceSubtext);
+  financesCard4.appendChild(balanceSubtextElement);
+
   const balanceText = document.createTextNode(
     new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(
       totalValue,
     ),
   );
   const balanceTextElement = document.createElement("h1");
+  balanceTextElement.id = "balance-element";
   balanceTextElement.appendChild(balanceText);
   balanceTextElement.style.color = "#5936CD";
   financesCard4.appendChild(balanceTextElement);
@@ -184,8 +247,64 @@ const openCloseModal = () => {
   modal.style.display = "none";
 };
 
+const onCallAddFinance = async (data) => {
+  try {
+    const email = localStorage.getItem("@walletapp:email");
+
+    const response = await fetch(
+      "https://walletappbackend-production.up.railway.app/finances",
+      {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        credentials: "same-origin",
+        headers: {
+          "Content-Type": "application/json",
+          email: email,
+        },
+        body: JSON.stringify(data),
+      },
+    );
+    const user = await response.json();
+    return user;
+  } catch (error) {
+    return { error };
+  }
+};
+
+const onCreateFinanceRealease = async (target) => {
+  try {
+    const title = target[0].value;
+    const value = Number(target[1].value);
+    const date = target[2].value;
+    const category_id = Number(target[3].value);
+    const result = onCallAddFinance({
+      title,
+      value,
+      date,
+      category_id,
+    });
+    if (result.error) {
+      alert("Erro ao adcionar novo dado financeiro");
+      return;
+    }
+
+    openCloseModal();
+    onLoadFinancesData();
+  } catch (error) {
+    alert("Erro ao adcionar novo dado financeiro");
+  }
+};
+
 window.onload = () => {
-  onLoadUserInfo();
   onLoadFinancesData();
+  onLoadUserInfo();
   onLoadCategories();
+
+  const form = document.getElementById("form-finance-release");
+  form.onsubmit = (event) => {
+    event.preventDefault();
+
+    onCreateFinanceRealease(event.target);
+  };
 };
